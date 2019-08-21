@@ -13,16 +13,18 @@ import 'package:dart_style/dart_style.dart';
 import 'package:dart_style/src/debug.dart' as debug;
 
 void main(List<String> args) {
-  // Enable debugging so you can see some of the formatter's internal state.
-  // Normal users do not do this.
-  debug.traceChunkBuilder = true;
-  debug.traceLineWriter = true;
-  debug.traceSplitter = true;
-  debug.useAnsiColors = true;
-
-  runTest("regression/0000/0068.stmt", 14);
-
-  formatStmt("hello(world);");
+  formatUnit("""
+extension A on B {
+  var a = 1;
+  b() {}
+  c() => null;
+  get d {}
+  get e => null;
+  set f(value) {}
+  set g(value) => null;
+  var h = 1;
+}
+""");
 }
 
 void formatStmt(String source, [int pageWidth = 80]) {

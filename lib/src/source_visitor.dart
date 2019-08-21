@@ -1145,6 +1145,26 @@ class SourceVisitor extends ThrowingAstVisitor {
     visit(node.superclass);
   }
 
+  void visitExtensionDeclaration(ExtensionDeclaration node) {
+    visitMetadata(node.metadata);
+
+    builder.nestExpression();
+    token(node.extensionKeyword);
+    space();
+    visit(node.name);
+    visit(node.typeParameters);
+    space();
+    token(node.onKeyword);
+    space();
+    visit(node.extendedType);
+    space();
+    builder.unnest();
+
+    _beginBody(node.leftBracket);
+    _visitMembers(node.members);
+    _endBody(node.rightBracket);
+  }
+
   visitFieldDeclaration(FieldDeclaration node) {
     visitMetadata(node.metadata);
 
